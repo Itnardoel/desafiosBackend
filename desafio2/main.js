@@ -3,19 +3,19 @@ class Contenedor {
     static idCounter = 0;
     static products = [];
 
-    save(object) {
+    async save(object) {
         // recibe un objeto, lo guarda en el archivo, devuelve el id asignado
         try {
 
             Contenedor.idCounter ++;
             object = {...object, id: Contenedor.idCounter};
             Contenedor.products.push(object);
-            escribirArchivo('./productos.txt', JSON.stringify(Contenedor.products, null, 2));
-            return console.log('El id del nuevo objeto es:', Contenedor.idCounter);
+            console.log('El id del nuevo objeto es:', Contenedor.idCounter);
+            await escribirArchivo('./productos.txt', JSON.stringify(Contenedor.products, null, 2));
 
         } catch (error) {
             console.log('Ocurrio un error durante la operación:', error);
-            throw new Error(error.message)
+            throw new Error(error.message);
         }
     }
 
@@ -33,7 +33,7 @@ class Contenedor {
 
         } catch (error) {
             console.log('Ocurrio un error durante la operación:', error);
-            throw new Error(error.message)
+            throw new Error(error.message);
         }
     }
 
@@ -44,7 +44,7 @@ class Contenedor {
             return console.log(contenidoJson);
         } catch (error) {
             console.log('Ocurrio un error durante la operación:', error);
-            throw new Error(error.message)
+            throw new Error(error.message);
         }
     }
 
@@ -57,7 +57,7 @@ class Contenedor {
             console.log(`Se borro el objeto con el id ${number}`);
         } catch (error) {
             console.log('Ocurrio un error durante la operación:', error);
-            throw new Error(error.message)
+            throw new Error(error.message);
         }
     }
 
@@ -70,7 +70,7 @@ class Contenedor {
             console.log('Se borraron todos los objetos');
         } catch (error) {
             console.log('Ocurrio un error durante la operación:', error);
-            throw new Error(error.message)
+            throw new Error(error.message);
         }
     }
 }
@@ -79,10 +79,10 @@ const fs = require('fs')
 
 const escribirArchivo = async (ruta, contenido) => {
     try {
-        await fs.promises.writeFile(ruta, contenido, 'utf-8')
+        await fs.promises.writeFile(ruta, contenido, 'utf-8');
     } catch (error) {
         console.log('Ocurrio un error durante la escritura:', error);
-        throw new Error(error.message)
+        throw new Error(error.message);
     }
 }
 
@@ -90,50 +90,11 @@ const leerArchivo = async (ruta) => {
     try {
       const contenidoString = await fs.promises.readFile(ruta, 'utf-8')
       const contenidoJson = JSON.parse(contenidoString);
-      return contenidoJson
+      return contenidoJson;
     } catch (error) {
       console.log('Ocurrio un error durante la lectura:', error);
-      throw new Error(error.message)
+      throw new Error(error.message);
     }
 }
 
-const contenedor = new Contenedor
-
-const object1 = {
-    title: 'Escuadra',
-    price: 123.45,
-    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png'
-}
-
-const object2 = {
-    title: 'Calculadora',
-    price: 234.56,
-    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png'
-}
-
-const object3 = {
-    title: 'Globo Terráqueo',
-    price: 345.67,
-    thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png'
-}
-
-setTimeout (function(){
-    contenedor.save(object1);
-    contenedor.save(object2);
-    contenedor.save(object3);
-},1000);
-
-
-setTimeout (function(){
-    contenedor.getById(3);
-    contenedor.getById(5);
-    contenedor.getAll();
-},2000);
-
-setTimeout (function(){
-    contenedor.deleteById(2);
-},3000);
-
-setTimeout (function(){
-    contenedor.deleteAll();
-},4000);
+module.exports = Contenedor
