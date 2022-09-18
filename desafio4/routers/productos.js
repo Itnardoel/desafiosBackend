@@ -68,7 +68,6 @@ router.delete('/productos/:id', (req, res) => {
     const idProducto = req.params.id;
     const objetoFind = productos.find(objeto => objeto.id == idProducto);
     if (objetoFind) {
-        productos.filter(producto => producto.id != idProducto);
         productos.splice(idProducto - 1, 1);
         res.status(200).end();
     } else (
