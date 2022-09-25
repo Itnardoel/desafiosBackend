@@ -48,7 +48,7 @@ router.post('/productos', (req, res) => {
     data = { id: siguienteID, ...data };
     productos.push(data)
     siguienteID ++;
-    res.status(200).json(data);
+    res.status(201).json(data);
 })
 
 router.put('/productos/:id', (req, res) => {
@@ -57,7 +57,7 @@ router.put('/productos/:id', (req, res) => {
     const objetoFind = productos.find(objeto => objeto.id == idProducto);
     if (objetoFind) { 
         objetoFind.price = req.body.price;
-        res.status(200).end();
+        res.status(204).end();
     } else (
         res.status(404).json({ error : 'producto no encontrado' })
     )
@@ -69,7 +69,7 @@ router.delete('/productos/:id', (req, res) => {
     const objetoFind = productos.find(objeto => objeto.id == idProducto);
     if (objetoFind) {
         productos.splice(idProducto - 1, 1);
-        res.status(200).end();
+        res.status(204).end();
     } else (
         res.status(404).json({ error : 'producto no encontrado' })
     )
