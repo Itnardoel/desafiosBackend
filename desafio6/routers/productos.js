@@ -1,13 +1,14 @@
 const { Router } = require('express');
 const ProductosController = require('../controllers/ProductosController');
+const { emit } = require('../socket');
 
 const router = Router();
 
 router.get('/', async (req, res) => {
     // devuelve un array con todos los productos en el servidor
     const productos = await ProductosController.obtenerTodos();
-    // res.status(200).json(productos);
-    res.render('productos', { productos, isEmpty: productos.length });
+    res.status(200).json(productos);
+    // res.render('productos', { productos, isEmpty: !productos.length }); //!0 = true, !num = false
 })
 
 router.get('/:id', async (req, res) => {
@@ -24,7 +25,8 @@ router.post('/', async (req, res) => {
     // recibe y agrega un producto, y lo devuelve con su id asignado
     const productos = await ProductosController.agregar(req);
     // res.status(201).json(productos);
-    res.redirect('/productos');
+    // res.redirect('/');
+    // emit('table-update', productos);
 })
 
 router.put('/:id', async (req, res) => {
