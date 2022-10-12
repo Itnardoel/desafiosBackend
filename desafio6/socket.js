@@ -9,9 +9,14 @@ let messages = [];
 let products = [];
 
 // Muestra el historial del chat guardado en el archivo messages.txt
-savedText = contenedor.getAll()
+savedText = contenedor.getAll();
 savedText
-.then (data => messages = data)
+.then (data => {
+    messages = data;
+    messages.forEach(message => {
+        contenedor.save(message);
+    });
+})
 .catch (error => console.log(error))
 
 function initSocket(httpServer) {
@@ -22,9 +27,9 @@ function initSocket(httpServer) {
 function setEvents(io) {
     io.on('connection', (socketClient) => {
         console.log('Se conecto un nuevo cliente con el id', socketClient.id);
-
+        
         socketClient.emit('history-messages', messages);
-
+        
         socketClient.emit('history-products', products);
 
         socketClient.on('new-message', (data) => {

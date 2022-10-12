@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "timestamp": "Date.now()",
+    "nombre": "Escuadra",
+    "descripcion": "",
+    "codigo": "",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
+    "precio": 123.45,
+    "stock": ""
+  },
+  {
+    "id": 2,
+    "timestamp": "Date.now()",
+    "nombre": "Calculadora",
+    "descripcion": "qweasdzxc",
+    "codigo": "",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "precio": 456.78,
+    "stock": ""
+  },
+  {
+    "id": 3,
+    "timestamp": "Date.now()",
+    "nombre": "Globo Terráqueo",
+    "descripcion": "",
+    "codigo": "",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png",
+    "precio": 345.67,
+    "stock": ""
+  }
+]

@@ -1,12 +1,12 @@
 class Contenedor {
 
-    static messages = [];
+    static productos = [];
 
-    async save(message) {
+    static async save(producto) {
         // recibe un objeto, lo guarda en el archivo
         try {
-            Contenedor.messages.push(message);
-            await escribirArchivo('./messages.txt', JSON.stringify(Contenedor.messages, null, 2));
+            Contenedor.productos.push(producto);
+            await escribirArchivo('./db/productos.json', JSON.stringify(Contenedor.productos, null, 2));
 
         } catch (error) {
             console.log('Ocurrio un error durante la operación:', error);
@@ -14,11 +14,32 @@ class Contenedor {
         }
     }
 
-    async getAll() {
+    static async getAll() {
         // devuelve un array con los objetos presentes en el archivo
         try {
-            const contenidoJson = await leerArchivo('./messages.txt');
+            const contenidoJson = await leerArchivo('./db/productos.json');
+            contenidoJson.forEach(producto => Contenedor.productos.push(producto));
             return contenidoJson;
+        } catch (error) {
+            console.log('Ocurrio un error durante la operación:', error);
+            throw new Error(error.message);
+        }
+    }
+
+    static async deleteById(id) {
+        try {
+            Contenedor.productos.splice(id - 1, 1);
+            await escribirArchivo('./db/productos.json', JSON.stringify(Contenedor.productos, null, 2));
+        } catch (error) {
+            console.log('Ocurrio un error durante la operación:', error);
+            throw new Error(error.message);
+        }
+    }
+
+    static async updateById(id, updatedProduct) {
+        try {
+            Contenedor.productos[id - 1] = updatedProduct;
+            await escribirArchivo('./db/productos.json', JSON.stringify(Contenedor.productos, null, 2));
         } catch (error) {
             console.log('Ocurrio un error durante la operación:', error);
             throw new Error(error.message);
