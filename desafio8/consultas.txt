@@ -1,0 +1,171 @@
+Creo la base de datos llamada "ecommerce"
+use ecommerce
+
+Creo 2 colecciones y les agrego 10 documentos
+db.mensajes.insertMany([
+    {
+        _id: 1,
+        email: "Coder House",
+        message: "Bienvenidos",
+        date: "22/10/2022 20:08:22",
+    },
+    {
+        _id: 2,
+        email: "qwe@gmail.com",
+        message: "Hola",
+        date: "22/10/2022 20:09:54",
+    },
+    {
+        _id: 3,
+        email: "asd@gmail.com",
+        message: "Hola, como va?",
+        date: "22/10/2022 20:10:43",
+    },
+    {
+        _id: 4,
+        email: "zxc@gmail.com",
+        message: "Buenas, como andan?",
+        date: "22/10/2022 20:11:32",
+    },
+    {
+        _id: 5,
+        email: "qwe@gmail.com",
+        message: "Todo bien",
+        date: "22/10/2022 20:11:56",
+    },
+    {   _id: 6,   
+        email: "asd@gmail.com",
+        message: "Todo tranqui por aca",
+        date: "22/10/2022 20:12:22",
+    },
+    {   _id: 7,
+        email: "zxc@gmail.com",
+        message: "Que andan haciendo?",
+        date: "22/10/2022 20:13:43",
+    },
+    {   _id: 8,
+        email: "qwe@gmail.com",
+        message: "Por entrar a jugar, se suman?",
+        date: "22/10/2022 20:14:51",
+    },
+    {   _id: 9,
+        email: "asd@gmail.com",
+        message: "Dale",
+        date: "22/10/2022 20:15:23",
+    },
+    {   _id: 10,
+        email: "zxc@gmail.com",
+        message: "Ahi entro",
+        date: "22/10/2022 20:16:11",
+    },
+])
+
+db.productos.insertMany([
+    {
+        _id: 1,
+        title: "Escuadra",
+        price: 120,
+        thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
+    },
+    {
+        _id: 2,
+        title: "Calculadora",
+        price: 580,
+        thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    },
+    {
+        _id: 3,
+        title: "Globo Terráqueo",
+        price: 900,
+        thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png",
+    },
+    {
+        _id: 4,
+        title: "Microscopio",
+        price: 1280,
+        thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/microscope-lab-science-school-256.png",
+    },
+    {
+        _id: 5,
+        title: "Pizarron",
+        price: 1700,
+        thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/board-math-class-school-256.png",
+    },
+    {
+        _id: 6,
+        title: "Matraz",
+        price: 2300,
+        thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/tube-lab-science-school-256.png",
+    },
+    {
+        _id: 7,
+        title: "Reloj",
+        price: 2860,
+        thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/clock-stopwatch-timer-time-256.png",
+    },
+    {
+        _id: 8,
+        title: "Cuarderno",
+        price: 3350,
+        thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/book-note-paper-school-256.png",
+    },
+    {
+        _id: 9,
+        title: "Lapiz",
+        price: 4320,
+        thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/pencil-pen-stationery-school-256.png",
+    },
+    {
+        _id: 10,
+        title: "Mochila",
+        price: 4990,
+        thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/bag-pack-container-school-256.png",
+    },
+])
+
+Listo los documentos de cada coleccion
+db.mensajes.find({})
+db.productos.find({})
+
+Muestro la cantidad de documentos en cada una de las colecciones
+db.mensajes.countDocuments({})
+db.productos.countDocuments({})
+
+Agrego un producto mas a la coleccion de productos
+db.productos.insertOne({
+    _id: 11,
+    title: "Paleta",
+    price: 2500,
+    thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/paint-color-pallete-brush-academy-256.png",
+})
+
+Realizo consulta de productos con precio menor a 1000
+db.productos.find({ price: { $lt: 1000 } })
+
+Realizo consulta de productos con precio entre 1000 y 3000
+db.productos.find({ $and: [ { price: { $gt: 1000 } }, { price: { $lt: 3000 } } ] })
+
+Realizo consulta de productos con precio mayor a 3000
+db.productos.find({ price: { $gt: 3000 } })
+
+Realizo consulta de productos que me trae el tercer producto mas barato
+db.productos.find().sort({ price: 1 }).limit(1).skip(2)
+
+Actualizo todos los productos y les agrego un stock de 100 a todos
+db.productos.updateMany({}, { $set: { stock: 100 } })
+
+Cambio el stock a 0 a los productos con precio mayor a 4000
+db.productos.updateMany({ price: { $gt: 4000 } }, { $set: { stock: 0 } })
+
+Borro los productos con precio menor a 1000
+db.productos.deleteMany({ price: { $lt: 1000 } })
+
+Creo un usuario 'pepe' clave: 'asd456' que sólo pueda leer la base de datos ecommerce. Verificar que pepe no pueda cambiar la información.
+use.admin
+db.createUser({
+    user: 'pepe',
+    pwd: 'asd456',
+    roles: [
+        { role: 'read', db: 'ecommerce'}
+    ]
+})
