@@ -23,5 +23,5 @@ npm start
 npm run dev
 ```
 
-## Ejecutar en desarrollo
+## Detalles sobre la ejecucion
 En el archivo `index.js` linea 21, se debe agregar la ruta para utilizar Mongo Atlas.
