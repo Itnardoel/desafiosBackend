@@ -14,6 +14,7 @@ Acá estamos configurando una variable de entorno para nuestro proyecto las cual
 | `PORT` | `8080` | Puerto por donde escuchará nuestro servicio. |
 | `ENV` | `local` | Entorno en el cual se ejecuta. |
 | `PERSISTENCE_TYPE` | `` | Persistencia en memoria. |
+| `MODE` | `` | Modo fork o modo cluster. |
 |  | `json` | Persistencia en archivo. |
 |  | `mongodb` | Persistencia en memoria. |
 |  | `firebase` | Persistencia en firebase. |
