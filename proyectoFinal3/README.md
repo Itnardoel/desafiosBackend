@@ -17,11 +17,11 @@ Acá estamos configurando una variable de entorno para nuestro proyecto las cual
 |  | `json` | Persistencia en archivo. |
 |  | `mongodb` | Persistencia en memoria. |
 |  | `firebase` | Persistencia en firebase. |
-| `MONGODB_URI` | Ruta a la base de datos. |
-| `NODEMAILER_MAIL_TARGET` | Direccion de email a la cual llegan desde la api. |
-| `TWILIO_ACCOUNT_SID` | ID cuenta Twilio. |
-| `TWILIO_AUTH_TOKEN` | Token cuenta Twilio. |
-| `TWILIO_PHONE_NUMBER` | Numero desde el cual se mandan los mensajes de whatsapp. |
+| `MONGODB_URI` | | Ruta a la base de datos. |
+| `NODEMAILER_MAIL_TARGET` | | Direccion de email a la cual llegan desde la api. |
+| `TWILIO_ACCOUNT_SID` | | ID cuenta Twilio. |
+| `TWILIO_AUTH_TOKEN` | | Token cuenta Twilio. |
+| `TWILIO_PHONE_NUMBER` | | Numero desde el cual se mandan los mensajes de whatsapp. |
 
 ## Ejecutar en producción
 ```sh
