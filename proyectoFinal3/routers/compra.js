@@ -17,12 +17,11 @@ router.get('/', async (req, res) => {
 
     const userPopulated = await UserModel.findOne({ _id: user._id }).populate('cart');
     
-
     sendMail(`Nuevo pedido de ${userPopulated.name} ${userPopulated.email}`, JSON.stringify(userPopulated.cart.productos));
     sendWhatsapp(`Su pedido ha sido recibido y se encuentra en proceso.`, userPopulated.tel);
 
     logger.info(`Ruta ${req.originalUrl} metodo GET`);
-    // res.render('profile', { layout: 'main' , user: profile});
+
     res.send(userPopulated.cart.productos);
 })
 

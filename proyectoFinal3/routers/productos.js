@@ -24,6 +24,7 @@ router.get('/admin', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     // devuelve un producto según su id
+    logger.info(`Ruta ${req.originalUrl} metodo GET`);
     const producto = await productosApi.listar(req.params.id);
     if (producto) {
         res.status(200).json(producto);
@@ -37,6 +38,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     // recibe y agrega un producto, y lo devuelve con su id asignado
+    logger.info(`Ruta ${req.originalUrl} metodo GET`);
     const productos = await productosApi.guardar(req);
     if (administrador) {
         // res.status(201).json(productos);
@@ -51,6 +53,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     // recibe y actualiza un producto según su id
+    logger.info(`Ruta ${req.originalUrl} metodo GET`);
     const producto = await productosApi.actualizar(req.params.id, req);
     if (administrador) {
         if (producto) { 
@@ -71,6 +74,7 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     // elimina un producto según su id
+    logger.info(`Ruta ${req.originalUrl} metodo GET`);
     const producto = await productosApi.borrar(req.params.id);
     if (administrador) {
         if (producto) {

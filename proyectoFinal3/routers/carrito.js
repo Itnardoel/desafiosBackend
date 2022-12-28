@@ -2,24 +2,28 @@ import { Router } from 'express'
 
 import { carritosDao as carritosApi } from '../daos/index.js'
 import UserModel from '../models/user.js'
+import logger from '../utils/logger.js';
 import sendMail from '../utils/nodemailer.js';
 import sendWhatsapp from '../utils/twilio.js';
 
 const router = Router();
 
 export async function createCart(req) {
+    logger.info(`Ruta ${req.originalUrl} metodo GET`);
     const carritoId = await carritosApi.guardar(req);
     return carritoId._id;
 }
 
 router.post('/', async (req, res) => {
     // crea un carrito y devuelve su id
+    logger.info(`Ruta ${req.originalUrl} metodo GET`);
     const carritoId = await carritosApi.guardar(req);
     res.status(201).json({ ID : carritoId.id});
 })
 
 router.delete('/:id', async (req, res) => {
     // vacia un carrito y lo elimina
+    logger.info(`Ruta ${req.originalUrl} metodo GET`);
     const carrito = await carritosApi.borrar(req.params.id);
     if (carrito) {
         res.status(204).end();
@@ -33,6 +37,7 @@ router.delete('/:id', async (req, res) => {
 
 router.get('/:id/productos', async (req, res) => {
     // lista todos los productos guardados en el carrito
+    logger.info(`Ruta ${req.originalUrl} metodo GET`);
     const carrito = await carritosApi.listar(req.params.id);
 
     const { user } = req;
@@ -54,6 +59,7 @@ router.get('/:id/productos', async (req, res) => {
 
 router.post('/:id/productos', async (req, res) => {
     // incopora productos al carrito por el id del producto
+    logger.info(`Ruta ${req.originalUrl} metodo GET`);
     const producto = await carritosApi.agregarProducto(req, req.params.id);
     if (producto) { 
         res.status(201).json(producto);
@@ -68,6 +74,7 @@ router.post('/:id/productos', async (req, res) => {
 
 router.delete('/:id/productos/:id_prod', async (req, res) => {
     // elimina un producto del carrito por su id de carrito y de producto
+    logger.info(`Ruta ${req.originalUrl} metodo GET`);
     const carrito = await carritosApi.borrarProducto(req.params.id, req.params.id_prod);
     
     if (carrito == 0) {
