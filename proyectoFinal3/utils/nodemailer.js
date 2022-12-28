@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer'
 
 import logger from './logger.js'
 
-const email = 'kailey.terry@ethereal.email';
+const email = process.env.NODEMAILER_MAIL_TARGET;
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
