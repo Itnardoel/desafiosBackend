@@ -9,7 +9,7 @@
 
     const btnEliminar = document.getElementsByClassName('boton-eliminar');
     const btnActualizar = document.getElementsByClassName('boton-actualizar');
-    const btnAgregar = document.getElementsByClassName('boton-agregar');
+
     const btnCarrito = document.getElementById('btn-carrito');
     const btnCreateCarrito = document.getElementById("create-carrito");
 
@@ -80,10 +80,6 @@
             for (const btn of btnActualizar) {
                 btn.addEventListener('click', updateProduct);
             }
-
-            for (const btn of btnAgregar) {
-                btn.addEventListener('click', addProduct);
-            }
         })
 
     btnCreateCarrito.addEventListener('click', createCart);
@@ -97,7 +93,6 @@
                                 ${data.nombre}
                             </header>
                             <img src=${data.foto} alt=""> <p>Precio: ${data.precio}</p>
-                            <button class="boton-agregar" data-id=${data.id}>Agregar</button>
                             ${administrador ? `<footer> <button class="boton-actualizar" data-id=${data.id}>Actualizar</button> <button class="boton-eliminar" data-id=${data.id}>Eliminar</button> </footer>` : ''}
                             `;
         cards.appendChild(article);
@@ -199,21 +194,4 @@
         
     }
 
-    function addProduct(event) {
-        let idProducto = event.target.getAttribute("data-id"); //obtengo el id del producto
-        let busqueda = products.find((producto) => producto.id == idProducto); //busco el id en el array de productos
-        
-        fetch(`http://localhost:8080/api/carrito/${inputCart.value}/productos`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(busqueda),
-        })
-            .then(response => {
-                console.log(response)
-                showCartById(event);
-            })
-            .catch(error => console.log(error))
-    }
 })();
