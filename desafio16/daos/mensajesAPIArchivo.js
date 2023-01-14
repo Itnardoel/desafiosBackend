@@ -7,4 +7,4 @@ class mensajesApiArchivo extends ContenedorArchivo {
 
 }
 
-export default mensajesApiArchivo;
+export default new mensajesApiArchivo;

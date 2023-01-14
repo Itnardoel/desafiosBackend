@@ -1,11 +1,8 @@
 import { Server } from 'socket.io'
 import moment from 'moment'
 
-import mensajesApiArchivo from './daos/mensajesAPIArchivo.js'
 import normalizar from './normalizr.js'
 import logger from './logger.js'
-
-const mensajes = new mensajesApiArchivo;
 
 let io;
 
@@ -14,7 +11,9 @@ let products = [];
 
 (async function () {
     try {
-        const historialMensajes = await mensajes.listarAll();
+        const response = await fetch('http://localhost:8080/api/mensajes')
+        const historialMensajes = await response.json();
+        
         if (historialMensajes.length == 0) {
             mensajes.guardar({
                 id: 'mensajes',
@@ -35,7 +34,6 @@ let products = [];
         }
         messages = historialMensajes;
     } catch (error) {
-        // console.error(error.message);
         logger.error(error.message);
     }
 })();
@@ -62,7 +60,7 @@ function setEvents(io) {
         socketClient.on('new-message', (data) => {
             data.date = moment().format("DD/MM/YYYY HH:mm:ss");;
             messages[0].mensajes.push(data);
-            mensajes.guardar(data);
+            saveNewMessage(data);
             io.emit('notification', data);
         })
 
@@ -75,6 +73,16 @@ function setEvents(io) {
             console.log('Se desconecto un cliente');
         })
     })
+}
+
+async function saveNewMessage (data) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }
+
+    await fetch('http://localhost:8080/api/mensajes', requestOptions );
 }
 
 export {
