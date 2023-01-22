@@ -1,4 +1,4 @@
-# Desafio 11
+# Desafio 12
 Este servicio permite crear 5 **productos** de manera aleatoria. Posee un servicio de chat usando sockets, y el mismo se obtiene desde el backend **normalizado**. Se debe ingresar con un usuario y una contraseña.
 
 ## Configuración
