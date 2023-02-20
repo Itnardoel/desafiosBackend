@@ -1,0 +1,18 @@
+[
+  {
+    "id": "fa658a88-d468-4a94-91f7-46101fee8cd4",
+    "nombre": "Calculadora",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "precio": 234.56,
+    "descripcion": "Calculadora cientifica",
+    "categoria": "Colegio"
+  },
+  {
+    "id": "585a2a36-74d2-465a-baed-d801ebcc3133",
+    "nombre": "Calculadora",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "precio": 234.56,
+    "descripcion": "Calculadora cientifica",
+    "categoria": "Educacion"
+  }
+]
