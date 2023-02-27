@@ -5,7 +5,6 @@ import ProductsMongoDao from './productsMongoDao.js';
 
 class ProductsDaoFactory {
   static getProductsDao() {
-    console.log("DAO_Target:", config.dao.target);
     switch (config.dao.target) {
       case "file":
         return ProductsFileDao.getInstance();

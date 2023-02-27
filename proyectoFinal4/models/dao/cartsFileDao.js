@@ -45,9 +45,19 @@ class CartsFile extends CartsDao {
     const index = cartsDao.findIndex((p) => p.id == id);
     if (index == -1) {
       throw new NotFoundError(`Cart with id ${id} not found`);
-    } else {
-        cartsDao[index].productos.push(product);
     }
+
+    const found = cartsDao[index].productos.find((o) => o.nombre == product.nombre);
+    const indexProd = cartsDao[index].productos.findIndex((o) => o.nombre == product.nombre);
+
+    if (found) {
+      cartsDao[index].productos[indexProd] = { ...product, cantidad: found.cantidad + 1}
+      await write(this.pathFile, cartsDao);
+      return new CartDto(cartsDao[index]);
+    }
+
+    cartsDao[index].productos.push({...product, cantidad: 1});
+  
     await write(this.pathFile, cartsDao);
     return new CartDto(cartsDao[index]);
   }

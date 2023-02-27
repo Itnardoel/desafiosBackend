@@ -37,9 +37,17 @@ class CartsMem extends CartsDao {
     const index = this.carts.findIndex((p) => p.id == id);
     if (index == -1) {
       throw new NotFoundError(`Cart with id ${id} not found`);
-    } else {
-        this.carts[index].productos.push(product);
+    } 
+
+    const found = this.carts[index].productos.find((o) => o.nombre == product.nombre);
+    const indexProd = this.carts[index].productos.findIndex((o) => o.nombre == product.nombre);
+
+    if (found) {
+      this.carts[index].productos[indexProd] = { ...product, cantidad: found.cantidad + 1}
+      return new CartDto(this.carts[index]);
     }
+
+    this.carts[index].productos.push({...product, cantidad: 1});
     return new CartDto(this.carts[index]);
   }
 

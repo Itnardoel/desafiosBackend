@@ -1,5 +1,3 @@
-import { BadRequestError } from "./errors/customError.js";
-
 class Cart {
   #id;
   #email;
@@ -20,7 +18,6 @@ class Cart {
   }
 
   set id(value) {
-    // if (!value) throw new Error('"id" es un campo requerido');
     this.#id = value;
   }
 
@@ -29,7 +26,6 @@ class Cart {
   }
 
   set email(value) {
-    // if (!value) throw new BadRequestError(`Email es un campo requerido`);
     this.#email = value;
   }
 
@@ -38,7 +34,6 @@ class Cart {
   }
 
   set fyh(value) {
-    // if (!value) throw new BadRequestError('Fecha y hora es un campo requerido');
     this.#fyh = value;
   }
 
@@ -55,7 +50,6 @@ class Cart {
   }
 
   set direccion(value) {
-    // if (!value) throw new BadRequestError('Direccion de entrega es un campo requerido');
     this.#direccion = value;
   }
 }

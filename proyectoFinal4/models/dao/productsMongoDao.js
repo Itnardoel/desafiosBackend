@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 
-import config from '../../config/config.js'
 import { NotFoundError } from '../errors/customError.js'
 import ProductsDao from "./productsDao.js";
 import ProductDto from "../dto/productsDto.js";
@@ -10,15 +9,6 @@ let productsInstance = null
 class ProductsMongo extends ProductsDao {
   constructor() {
     super()
-    mongoose
-      .set('strictQuery', false)
-      .connect(config.dao.mongo)
-      .then(() => {
-        console.log('Database connected.')
-      })
-      .catch(error => {
-        console.error('Error to connect to database', error.message)
-      })
     this.model = mongoose.model('Producto', {
       nombre: String,
       foto: String,

@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 
-import config from '../../config/config.js'
 import { NotFoundError } from '../errors/customError.js'
 import CartsDao from './cartsDao.js';
 import CartDto from '../dto/cartsDto.js';
@@ -11,15 +10,6 @@ let cartsInstance = null
 class CartsMongo extends CartsDao {
   constructor() {
     super()
-    mongoose
-      .set('strictQuery', false)
-      .connect(config.dao.mongo)
-      .then(() => {
-        console.log('Database connected.')
-      })
-      .catch(error => {
-        console.error('Error to connect to database', error.message)
-      })
     this.model = mongoose.model('Carrito', {
       email: String,
       fyh: { type: Date, default: Date.now(), require: true },
@@ -46,10 +36,17 @@ class CartsMongo extends CartsDao {
     const cartDao = await this.model.findOne({ _id: id })
     if (!cartDao) {
         throw new NotFoundError(`Cart with id ${id} not found`, { id })
-    } else {
-        cartDao.productos.push(product);
-        // await this.model.updateOne({ _id: id }, { $push: { productos: product } });
+    } 
+
+    const found = cartDao.productos.find((o) => o.nombre == product.nombre);
+    const indexProd = cartDao.productos.findIndex((o) => o.nombre == product.nombre);
+
+    if (found) {
+      cartDao.productos[indexProd] = { ...product, cantidad: found.cantidad + 1}
+      return new CartDto(await cartDao.save());
     }
+
+    cartDao.productos.push({...product, cantidad: 1});
     return new CartDto(await cartDao.save())
   }
 
@@ -73,7 +70,6 @@ class CartsMongo extends CartsDao {
     }
     const productDeleted = cartDao.productos.splice(indexProd, 1)[0];
     await cartDao.save();
-    // await this.model.updateOne({ _id: id }, { $pull: { productos: { id: id_prod } } });
     return new ProductDto(productDeleted)
   }
 

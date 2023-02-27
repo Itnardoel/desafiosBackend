@@ -1,12 +1,13 @@
 import mongoose from 'mongoose'
+import logger from '../utils/logger.js';
 
 export const init = async () => {
   try {
     mongoose.set('strictQuery', false); // Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7
     const URL = process.env.MONGODB_URI
     mongoose.connect(URL)
-    console.log('Database connected')
+    logger.info('Database connected')
   } catch (error) {
-    console.error('Error to connecto to database', error.message)
+    logger.error('Error to connecto to database', error.message)
   }
 }

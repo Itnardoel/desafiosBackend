@@ -22,7 +22,6 @@ class Product {
   }
 
   set id(value) {
-    // if (!value) throw new Error('"id" es un campo requerido');
     this.#id = value;
   }
 
@@ -70,7 +69,7 @@ class Product {
   }
 
   set categoria(value) {
-    if (!value) throw new Error('"Categoria" es un campo requerido');
+    if (!value) throw new BadRequestError('"Categoria" es un campo requerido');
     this.#categoria = value;
   }
 }

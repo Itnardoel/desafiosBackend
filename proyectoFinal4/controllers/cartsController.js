@@ -2,6 +2,8 @@ import cartsService from '../services/cartsService.js';
 
 export async function create(req, res, next) {
     try {
+      const { user } = req
+      req.body = { email: user.email, ...req.body}
       const cart = await cartsService.create(req.body)
       return res.status(201).json(cart)
     } catch (error) {
